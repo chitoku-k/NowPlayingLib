@@ -75,18 +75,17 @@ namespace NowPlayingLib
         /// <param name="pdispMedia">再生中の曲。</param>
         protected async void OnCurrentMediaChanged(object pdispMedia)
         {
-            var media = pdispMedia as IWMPMedia3;
+            ComWrapper.Create(pdispMedia).Dispose();
 
             // 曲情報が利用可能になるまで待機
             while (Player.Object.openState != WMPOpenState.wmposMediaOpen)
             {
-                media = null;
                 await Task.Delay(100);
             }
 
             if (CurrentMediaChanged != null)
             {
-                CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(media ?? Player.Object.currentMedia)));
+                CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(Player.Object.currentMedia)));
             }
         }
 
@@ -102,7 +101,7 @@ namespace NowPlayingLib
             }
         }
 
-        private async Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
+        private Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
         {
             var cache = new INTERNET_CACHE_ENTRY_INFO();
             using (ComWrapper.Create(artwork))
@@ -110,7 +109,7 @@ namespace NowPlayingLib
                 try
                 {
                     cache = NativeMethods.GetUrlCacheEntryInfo(artwork.URL);
-                    return await ReadFile(cache.LocalFileName);
+                    return ReadFile(cache.LocalFileName);
                 }
                 finally
                 {
