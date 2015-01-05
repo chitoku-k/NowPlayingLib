@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{63929626-8FA7-472D-88E0-B19B246CD519}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NowPlayingLib</RootNamespace>
+    <AssemblyName>NowPlayingLib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <DocumentationFile>bin\Debug\NowPlayingLib.XML</DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <UseVSHostingProcess>true</UseVSHostingProcess>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+    <DocumentationFile>bin\Release\NowPlayingLib.XML</DocumentationFile>
+    <RegisterForComInterop>false</RegisterForComInterop>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="iTunesLib">
+      <HintPath>Dependencies\iTunesLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="SmpxKDDILib">
+      <HintPath>Dependencies\SmpxKDDILib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="SmpxSonyLib">
+      <HintPath>Dependencies\SmpxSonyLib.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="SonyMediaPlayerXLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <HintPath>Dependencies\SonyMediaPlayerXLib.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="SonyVzCs">
+      <HintPath>Dependencies\SonyVzCs.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="wmppia, Version=9.0.0.3095, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
+      <HintPath>Dependencies\wmppia.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Helpers\TryParseHelper.cs" />
+    <Compile Include="INotifyPlayerStateChanged.cs" />
+    <Compile Include="Interop\AudioAttributes.cs" />
+    <Compile Include="Interop\ComWrapper.cs" />
+    <Compile Include="Interop\HRESULT.cs" />
+    <Compile Include="Interop\IOleClientSite.cs" />
+    <Compile Include="Interop\IOleObject.cs" />
+    <Compile Include="Interop\IServiceProvider.cs" />
+    <Compile Include="Interop\MetadataPictureCollection.cs" />
+    <Compile Include="Interop\IWMPRemoteMediaServices.cs" />
+    <Compile Include="Interop\MediaServiceProvider.cs" />
+    <Compile Include="Interop\OLECLOSE.cs" />
+    <Compile Include="Interop\RemoteHost.cs" />
+    <Compile Include="iTunes.cs" />
+    <Compile Include="LismoPort.cs" />
+    <Compile Include="CurrentMediaChangedEventArgs.cs" />
+    <Compile Include="MediaItem.cs" />
+    <Compile Include="MediaPlayerBase.cs" />
+    <Compile Include="PlayerState.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SonyMediaPlayerX.cs" />
+    <Compile Include="Win32\CACHE_ENTRY.cs" />
+    <Compile Include="Win32\INTERNET_CACHE_ENTRY_INFO.cs" />
+    <Compile Include="Win32\NativeMethods.cs" />
+    <Compile Include="WindowsMediaPlayer.cs" />
+    <Compile Include="XApplication.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
