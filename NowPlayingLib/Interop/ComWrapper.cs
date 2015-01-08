@@ -54,10 +54,7 @@ namespace NowPlayingLib.Interop
     /// </summary>
     public class ComWrapper
     {
-        /// <summary>
-        /// <see cref="NowPlayingLib.Interop.ComWrapper"/> クラスの新しいインスタンスを初期化します。
-        /// </summary>
-        protected ComWrapper() { }
+        internal ComWrapper() { }
 
         /// <summary>
         /// 指定した COM オブジェクトのラッパーとして機能する <see cref="NowPlayingLib.Interop.ComWrapper"/> を作成します。

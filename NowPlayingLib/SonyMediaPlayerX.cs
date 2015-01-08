@@ -41,7 +41,7 @@ namespace NowPlayingLib
         {
             if (this.PlayerState == PlayerState.Stopped)
             {
-                return null;
+                return Task.FromResult<MediaItem>(null);
             }
 
             using (var currentItem = ComWrapper.Create((ISmpxMediaDescriptor2)Controls.Object.currentItem))
