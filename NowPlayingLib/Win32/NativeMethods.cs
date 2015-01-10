@@ -7,11 +7,13 @@ namespace NowPlayingLib.Win32
 {
     internal class NativeMethods
     {
-        [DllImport("wininet.dll", SetLastError = true)]
-        private static extern bool GetUrlCacheEntryInfo(string lpszUrlName, IntPtr lpCacheEntryInfo, out uint lpdwCacheEntryInfoBufferSize);
+        [DllImport("wininet.dll", SetLastError = true, BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool GetUrlCacheEntryInfo([MarshalAs(UnmanagedType.LPStr)] string lpszUrlName, IntPtr lpCacheEntryInfo, out uint lpdwCacheEntryInfoBufferSize);
 
-        [DllImport("wininet.dll", SetLastError = true, EntryPoint = "DeleteUrlCacheEntry")]
-        private static extern bool DeleteUrlCacheEntryFunc(string lpszUrlName);
+        [DllImport("wininet.dll", SetLastError = true, EntryPoint = "DeleteUrlCacheEntry", BestFitMapping = false, ThrowOnUnmappableChar = true)]
+        [return: MarshalAs(UnmanagedType.Bool)]
+        private static extern bool DeleteUrlCacheEntryFunc([MarshalAs(UnmanagedType.LPStr)] string lpszUrlName);
 
         /// <summary>
         /// Retrieves information about a cache entry.

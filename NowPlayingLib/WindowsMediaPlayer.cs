@@ -3,6 +3,7 @@ using NowPlayingLib.Helpers;
 using NowPlayingLib.Interop;
 using NowPlayingLib.Win32;
 using System;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -154,7 +155,7 @@ namespace NowPlayingLib
                     Year = currentMedia.getItemInfo(AudioAttributes.Year).ToInt32()
                 };
                 media.AlbumArtist = string.IsNullOrEmpty(media.AlbumArtist) ? media.Artist : media.AlbumArtist;
-                media.Artworks = await GetArtworks(new MetadataPictureCollection(currentMedia));
+                media.Artworks = new Collection<Stream>(await GetArtworks(new MetadataPictureCollection(currentMedia)));
                 return media;
             }
         }

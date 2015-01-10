@@ -40,7 +40,7 @@ namespace NowPlayingLib.Interop
         /// COM オブジェクトを解放します。
         /// </summary>
         /// <param name="disposing">明示的な破棄要求元から呼び出された場合は true に設定します。それ以外の場合は false。</param>
-        protected void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing && this.Object != null && Marshal.IsComObject(this.Object))
             {

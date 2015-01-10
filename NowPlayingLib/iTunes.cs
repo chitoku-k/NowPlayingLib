@@ -2,6 +2,7 @@
 using NowPlayingLib.Interop;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -132,7 +133,7 @@ namespace NowPlayingLib
                     Year = currentTrack.Year
                 };
                 media.AlbumArtist = ((dynamic)currentTrack).AlbumArtist ?? media.Artist ?? "";
-                media.Artworks = await GetArtworks(artworks.Object);
+                media.Artworks = new Collection<Stream>(await GetArtworks(artworks.Object));
                 return media;
             }
         }

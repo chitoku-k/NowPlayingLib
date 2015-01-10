@@ -3,7 +3,7 @@
     /// <summary>
     /// The Windows Media Player Attribute Reference documents metadata attributes that are of interest to Windows Media Player SDK developers.
     /// </summary>
-    public class AudioAttributes
+    public static class AudioAttributes
     {
         /// <summary>
         /// The AcquisitionTime attribute is the date and time the item was added to the library.

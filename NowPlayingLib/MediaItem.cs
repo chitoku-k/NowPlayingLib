@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.IO;
 
 namespace NowPlayingLib
@@ -8,7 +9,7 @@ namespace NowPlayingLib
     /// </summary>
     public class MediaItem
     {
-        private Stream[] _artworks;
+        private Collection<Stream> _artworks;
 
         /// <summary>
         /// トラックのアルバム名を取得または設定します。
@@ -28,9 +29,9 @@ namespace NowPlayingLib
         /// <summary>
         /// トラックのアルバムアートワークのコレクションを取得または設定します。
         /// </summary>
-        public Stream[] Artworks
+        public Collection<Stream> Artworks
         {
-            get { return _artworks ?? new Stream[0]; }
+            get { return _artworks ?? new Collection<Stream>(); }
             set { _artworks = value; }
         }
 
