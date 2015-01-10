@@ -53,7 +53,7 @@ namespace NowPlayingLib
         /// <summary>
         /// 音楽プレーヤーのリソースが解放されているかどうかを示す値を取得します。
         /// </summary>
-        public static  bool IsDisposed { get; protected set; }
+        public static bool IsDisposed { get; protected set; }
 
         /// <summary>
         /// 音楽プレーヤーに関連付けられたアンマネージ リソースを解放します。

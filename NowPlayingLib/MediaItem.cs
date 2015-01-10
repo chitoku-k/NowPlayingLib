@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 
 namespace NowPlayingLib
@@ -9,6 +10,7 @@ namespace NowPlayingLib
     /// </summary>
     public class MediaItem
     {
+        [DebuggerBrowsable(DebuggerBrowsableState.Never)]
         private Collection<Stream> _artworks;
 
         /// <summary>

@@ -79,7 +79,7 @@ namespace NowPlayingLib
             }
         }
 
-        private Task<Stream> GetArtwork(IITArtwork artwork)
+        private async Task<Stream> GetArtwork(IITArtwork artwork)
         {
             string path = null;
             using (ComWrapper.Create(artwork))
@@ -88,7 +88,7 @@ namespace NowPlayingLib
                 {
                     path = Path.GetTempFileName();
                     artwork.SaveArtworkToFile(path);
-                    return ReadFile(path);
+                    return await ReadFile(path);
                 }
                 finally
                 {

@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Foobar2000.cs" />
     <Compile Include="Helpers\TryParseHelper.cs" />
     <Compile Include="INotifyPlayerStateChanged.cs" />
     <Compile Include="Interop\AudioAttributes.cs" />
@@ -93,6 +94,26 @@
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="WindowsMediaPlayer.cs" />
     <Compile Include="XApplication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Foobar2000">
+      <Guid>{CB8F14D8-736E-4BB7-ADCF-BE26C39B576B}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Foobar2000Helper">
+      <Guid>{332869AA-4769-46C5-BE50-88866927A23D}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -153,6 +153,9 @@ namespace NowPlayingLib.Sample.ViewModels
                     case "LISMO PORT":
                         player = new LismoPort();
                         break;
+                    case "FOOBAR2000":
+                        player = new Foobar2000();
+                        break;
                     default:
                         return;
                 }

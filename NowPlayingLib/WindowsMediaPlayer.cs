@@ -102,7 +102,7 @@ namespace NowPlayingLib
             }
         }
 
-        private Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
+        private async Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
         {
             var cache = new INTERNET_CACHE_ENTRY_INFO();
             using (ComWrapper.Create(artwork))
@@ -110,7 +110,7 @@ namespace NowPlayingLib
                 try
                 {
                     cache = NativeMethods.GetUrlCacheEntryInfo(artwork.URL);
-                    return ReadFile(cache.LocalFileName);
+                    return await ReadFile(cache.LocalFileName);
                 }
                 finally
                 {
@@ -183,7 +183,10 @@ namespace NowPlayingLib
 
             if (disposing)
             {
-                _controls.Dispose();
+                if (_controls != null)
+                {
+                    _controls.Dispose();
+                }
                 if (_player != null)
                 {
                     _player.Object.CurrentItemChange -= OnCurrentMediaChanged;
