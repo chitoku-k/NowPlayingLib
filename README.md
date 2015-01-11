@@ -9,3 +9,6 @@ NowPlaying Library for following media players running on Windows:
 - foobar2000 (with [COM Automation server](http://foosion.foobar2000.org/0.9/#comserver) component installed)
 
 Artwork supports are currently only available on Windows Media Player and iTunes.
+
+Japanese description is available here:  
+[NowPlayingLib を公開しました – ちとくのホームページ](http://chitoku.jp/programming/nowplayinglib)
