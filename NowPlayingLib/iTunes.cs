@@ -79,21 +79,17 @@ namespace NowPlayingLib
             }
         }
 
-        private async Task<Stream> GetArtwork(IITArtwork artwork)
+        private Task<Stream> GetArtwork(IITArtwork artwork)
         {
-            string path = null;
             using (ComWrapper.Create(artwork))
             {
-                try
-                {
-                    path = Path.GetTempFileName();
-                    artwork.SaveArtworkToFile(path);
-                    return await ReadFile(path);
-                }
-                finally
+                string path = Path.GetTempFileName();
+                artwork.SaveArtworkToFile(path);
+                return ReadFile(path).ContinueWith(task =>
                 {
                     File.Delete(path);
-                }
+                    return task.Result;
+                });
             }
         }
 

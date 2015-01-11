@@ -65,7 +65,7 @@ namespace NowPlayingLib
         {
             if (_player == null)
             {
-                Player.Object.CurrentItemChange += OnCurrentMediaChanged;
+                Player.Object.OpenStateChange += OnCurrentMediaChanged;
                 Player.Object.PlayerDockedStateChange += OnClosed;
             }
         }
@@ -73,17 +73,13 @@ namespace NowPlayingLib
         /// <summary>
         /// <see cref="NowPlayingLib.WindowsMediaPlayer.CurrentMediaChanged"/> イベントを発生させます。
         /// </summary>
-        /// <param name="pdispMedia">再生中の曲。</param>
-        protected async void OnCurrentMediaChanged(object pdispMedia)
+        /// <param name="NewState">メディアの新しい状態。</param>
+        protected async void OnCurrentMediaChanged(int NewState)
         {
-            ComWrapper.Create(pdispMedia).Dispose();
-
-            // 曲情報が利用可能になるまで待機
-            while (Player.Object.openState != WMPOpenState.wmposMediaOpen)
+            if ((WMPOpenState)NewState != WMPOpenState.wmposMediaOpen)
             {
-                await Task.Delay(100);
+                return;
             }
-
             if (CurrentMediaChanged != null)
             {
                 CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(Player.Object.currentMedia)));
@@ -102,20 +98,16 @@ namespace NowPlayingLib
             }
         }
 
-        private async Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
+        private Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
         {
-            var cache = new INTERNET_CACHE_ENTRY_INFO();
             using (ComWrapper.Create(artwork))
             {
-                try
-                {
-                    cache = NativeMethods.GetUrlCacheEntryInfo(artwork.URL);
-                    return await ReadFile(cache.LocalFileName);
-                }
-                finally
+                var cache = NativeMethods.GetUrlCacheEntryInfo(artwork.URL);
+                return ReadFile(cache.LocalFileName).ContinueWith(task =>
                 {
                     NativeMethods.DeleteUrlCacheEntry(cache.SourceUrlName);
-                }
+                    return task.Result;
+                });
             }
         }
 
@@ -189,7 +181,7 @@ namespace NowPlayingLib
                 }
                 if (_player != null)
                 {
-                    _player.Object.CurrentItemChange -= OnCurrentMediaChanged;
+                    _player.Object.OpenStateChange -= OnCurrentMediaChanged;
                     _player.Object.PlayerDockedStateChange -= OnClosed;
                     ((IOleObject)_player.Object).Close(OLECLOSE.NOSAVE);
                     _player.Dispose();
