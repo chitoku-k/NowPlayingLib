@@ -67,7 +67,7 @@ namespace NowPlayingLib
         }
 
         /// <summary>
-        /// <see cref="NowPlayingLib.iTunes.CurrentMediaChanged"/> イベントを発生させます。
+        /// <see cref="NowPlayingLib.Foobar2000.CurrentMediaChanged"/> イベントを発生させます。
         /// </summary>
         /// <param name="bLocationChanged">再生位置が変更されたかを示す値。</param>
         protected void OnCurrentMediaChanged(bool bLocationChanged)
