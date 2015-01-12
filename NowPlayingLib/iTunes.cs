@@ -137,8 +137,10 @@ namespace NowPlayingLib
         /// <summary>
         /// 非同期操作として現在 iTunes で再生している曲を取得します。
         /// </summary>
+        /// <returns>
         /// <para>非同期操作を表すタスク オブジェクト。</para>
         /// <para>タスク オブジェクトの <c>Result</c> プロパティは、<see cref="NowPlayingLib.MediaItem"/> を返します。</para>
+        /// </returns>
         public override Task<MediaItem> GetCurrentMedia()
         {
             return GetCurrentMedia(Player.Object.CurrentTrack);
