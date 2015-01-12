@@ -53,7 +53,7 @@ namespace NowPlayingLib
                     Album = currentItem.Object.packageTitle,
                     AlbumArtist = currentItem.Object.artist,
                     Artist = currentItem.Object.artist,
-                    Duration = TimeSpan.FromSeconds(currentItem.Object.duration),
+                    Duration = TimeSpan.FromMilliseconds(currentItem.Object.duration),
                     Genre = currentItem.Object.genre,
                     Name = currentItem.Object.title,
                     // 例外発生: System.Runtime.InteropServices.COMException
