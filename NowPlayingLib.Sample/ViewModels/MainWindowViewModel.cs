@@ -164,6 +164,7 @@ namespace NowPlayingLib.Sample.ViewModels
                 if (p != null)
                 {
                     p.CurrentMediaChanged += SetCurrentMedia;
+                    p.Closed += ResetPlayer;
                 }
                 SetCurrentMedia(player, new CurrentMediaChangedEventArgs(await player.GetCurrentMedia()));
 
@@ -181,6 +182,12 @@ namespace NowPlayingLib.Sample.ViewModels
         private void SetCurrentMedia(object sender, CurrentMediaChangedEventArgs e)
         {
             this.MediaItem = e.CurrentMedia;
+        }
+
+        private void ResetPlayer(object sender, EventArgs e)
+        {
+            this.MediaItem = null;
+            this.PlayerName = null;
         }
     }
 }

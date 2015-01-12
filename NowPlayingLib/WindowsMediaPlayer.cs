@@ -61,12 +61,12 @@ namespace NowPlayingLib
         /// <see cref="NowPlayingLib.WindowsMediaPlayer"/> の新しいインスタンスを作成し、Windows Media Player を初期化します。
         /// </summary>
         /// <exception cref="System.TypeInitializationException"/>
-        public WindowsMediaPlayer() 
+        public WindowsMediaPlayer()
         {
             if (_player == null)
             {
                 Player.Object.OpenStateChange += OnCurrentMediaChanged;
-                Player.Object.PlayerDockedStateChange += OnClosed;
+                Player.Object.PlayerDockedStateChange += OnPlayerStateChanged;
             }
         }
 
@@ -84,6 +84,24 @@ namespace NowPlayingLib
             {
                 CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(Player.Object.currentMedia)));
             }
+        }
+
+        private void OnPlayerStateChanged()
+        {
+            if (_player == null)
+            {
+                return;
+            }
+
+            using (var app = ComWrapper.Create(Player.Object.playerApplication))
+            {
+                if (!app.Object.playerDocked)
+                {
+                    return;
+                }
+            }
+
+            OnClosed();
         }
 
         /// <summary>
@@ -184,7 +202,7 @@ namespace NowPlayingLib
                 if (_player != null)
                 {
                     _player.Object.OpenStateChange -= OnCurrentMediaChanged;
-                    _player.Object.PlayerDockedStateChange -= OnClosed;
+                    _player.Object.PlayerDockedStateChange -= OnPlayerStateChanged;
                     ((IOleObject)_player.Object).Close(OLECLOSE.NOSAVE);
                     _player.Dispose();
                 }
