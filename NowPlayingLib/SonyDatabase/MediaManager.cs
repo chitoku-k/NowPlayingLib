@@ -28,11 +28,12 @@ namespace NowPlayingLib.SonyDatabase
             using (var connection = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + path))
             using (var context = new MtDataDataContext(connection))
             {
+                // IQueryable.FirstOrDefault では不正な SQL 文が発行される
                 return context.ObjectTable.Where(x => x.SpecId == (int)VzObjectCategoryEnum.vzObjectCategory_Music + 1 &&
                                                       x.Album == media.packageTitle &&
                                                       x.Artist == media.artist &&
                                                       x.Genre == media.genre &&
-                                                      x.Name == media.title).ToArray().FirstOrDefault();
+                                                      x.Name == media.title).AsEnumerable().FirstOrDefault();
             }
         }
     }
