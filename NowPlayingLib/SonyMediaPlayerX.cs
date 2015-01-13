@@ -1,7 +1,10 @@
 ﻿using NowPlayingLib.Interop;
+using NowPlayingLib.SonyDatabase;
 using SonyMediaPlayerXLib;
 using SonyVzCs;
 using System;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace NowPlayingLib
@@ -32,6 +35,30 @@ namespace NowPlayingLib
             get { return _controls ?? (_controls = ComWrapper.Create(Player.Object.playControls)); }
         }
 
+        private async Task<MediaItem> GetCurrentMedia(ISmpxMediaDescriptor2 media)
+        {
+            var entry = await Task.Run(() => MediaManager.GetMediaEntry(media));
+            return new MediaItem
+            {
+                Album = entry.Album,
+                AlbumArtist = entry.Artist,
+                Artist = entry.Artist,
+                Artworks = new Collection<Stream>() { await ReadFile(entry.ArtworkPath) },
+                BitRate = entry.BitRate.Value,
+                Composer = entry.Composer,
+                DateAdded = entry.DateAdded.Value,
+                Duration = TimeSpan.FromMilliseconds(entry.Duration.Value),
+                FileInfo = GetFileInfo(entry.FilePath),
+                Genre = entry.Genre,
+                Kind = entry.Kind,
+                Name = entry.Name,
+                PlayedDate = entry.PlayedDate.Value,
+                ReleaseDate = entry.ReleaseDate.Value,
+                TrackNumber = entry.TrackNumber.Value,
+                Year = entry.ReleaseDate.Value.Year
+            };
+        }
+
         /// <summary>
         /// 非同期操作として現在 SonyMediaPlayerX で再生している曲を取得します。
         /// </summary>
@@ -43,23 +70,15 @@ namespace NowPlayingLib
         {
             if (this.PlayerState == PlayerState.Stopped)
             {
-                return Task.FromResult<MediaItem>(null);
+                return null;
             }
 
-            using (var currentItem = ComWrapper.Create((ISmpxMediaDescriptor2)Controls.Object.currentItem))
+            var currentItem = ComWrapper.Create((ISmpxMediaDescriptor2)Controls.Object.currentItem);
+            return GetCurrentMedia(currentItem.Object).ContinueWith(task =>
             {
-                return Task.FromResult(new MediaItem
-                {
-                    Album = currentItem.Object.packageTitle,
-                    AlbumArtist = currentItem.Object.artist,
-                    Artist = currentItem.Object.artist,
-                    Duration = TimeSpan.FromMilliseconds(currentItem.Object.duration),
-                    Genre = currentItem.Object.genre,
-                    Name = currentItem.Object.title,
-                    // 例外発生: System.Runtime.InteropServices.COMException
-                    // FileInfo = GetFileInfo(currentItem.Object.filePath),
-                });
-            }
+                currentItem.Dispose();
+                return task.Result;
+            });
         }
 
         /// <summary>

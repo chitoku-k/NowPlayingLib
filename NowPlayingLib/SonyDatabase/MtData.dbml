@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Class="MtDataDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Table Name="t_object" Member="ObjectTable">
+    <Type Name="ObjectTable">
+      <Column Name="ObjectId" Member="Id" Type="System.Int32" CanBeNull="false" />
+      <Column Name="ObjectSpecId" Member="SpecId" Type="System.Int32" CanBeNull="true" />
+      <Column Name="ObjectName" Member="Name" Type="System.String" CanBeNull="true" />
+      <Column Name="104" Member="BitRate" Type="System.Int32" CanBeNull="true" />
+      <Column Name="106" Member="TrackNumber" Type="System.Int32" CanBeNull="true" />
+      <Column Name="116" Member="SamplingRate" Type="System.Int32" CanBeNull="true" />
+      <Column Name="200" Member="Genre" Type="System.String" CanBeNull="true" />
+      <Column Name="201" Member="Artist" Type="System.String" CanBeNull="true" />
+      <Column Name="202" Member="ArtworkPath" Type="System.String" CanBeNull="true" />
+      <Column Name="206" Member="Album" Type="System.String" CanBeNull="true" />
+      <Column Name="208" Member="Kind" Type="System.String" CanBeNull="true" />
+      <Column Name="216" Member="Composer" Type="System.String" CanBeNull="true" />
+      <Column Name="300" Member="DateAdded" Type="System.DateTime" CanBeNull="true" />
+      <Column Name="301" Member="ReleaseDate" Type="System.DateTime" CanBeNull="true" />
+      <Column Name="303" Member="PlayedDate" Type="System.DateTime" CanBeNull="true" />
+      <Column Name="400" Member="Duration" Type="System.Double" CanBeNull="true" />
+      <Column Name="500" Member="FilePath" Type="System.String" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

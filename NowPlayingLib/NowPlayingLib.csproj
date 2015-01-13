@@ -66,8 +66,14 @@
       <HintPath>Dependencies\SonyVzCs.dll</HintPath>
       <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
+    <Reference Include="SonyVzProperty">
+      <HintPath>Dependencies\SonyVzProperty.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="wmppia, Version=9.0.0.3095, Culture=neutral, PublicKeyToken=31bf3856ad364e35">
       <HintPath>Dependencies\wmppia.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -96,12 +102,28 @@
     <Compile Include="MediaPlayerBase.cs" />
     <Compile Include="PlayerState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SonyDatabase\MediaManager.cs" />
+    <Compile Include="SonyDatabase\MtData.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MtData.dbml</DependentUpon>
+    </Compile>
     <Compile Include="SonyMediaPlayerX.cs" />
     <Compile Include="Win32\CACHE_ENTRY.cs" />
     <Compile Include="Win32\INTERNET_CACHE_ENTRY_INFO.cs" />
     <Compile Include="Win32\NativeMethods.cs" />
     <Compile Include="WindowsMediaPlayer.cs" />
     <Compile Include="XApplication.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SonyDatabase\MtData.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>MtData.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
