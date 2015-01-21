@@ -3,7 +3,6 @@ using Foobar2000Helper;
 using NowPlayingLib.Helpers;
 using NowPlayingLib.Interop;
 using System;
-using System.Diagnostics;
 using System.Threading.Tasks;
 
 namespace NowPlayingLib
@@ -14,6 +13,7 @@ namespace NowPlayingLib
     public class Foobar2000 : MediaPlayerBase, INotifyPlayerStateChanged
     {
         private static ComWrapper<Application07> _player;
+        private static ComWrapper<ApplicationHelper07> _helper;
         private static ComWrapper<Playback07> _playback;
 
         /// <summary>
@@ -25,16 +25,16 @@ namespace NowPlayingLib
             {
                 try
                 {
-                    using (var helper = ComWrapper.Create(new ApplicationHelper07()))
-                    {
-                        if (helper.Object.Running)
-                        {
-                            _player = ComWrapper.Create((Application07)helper.Object.Server);
-                        }
-                    }
                     if (_player == null)
                     {
-                        _player = ComWrapper.Create(new Application07());
+                        if (Helper.Object.Running)
+                        {
+                            _player = ComWrapper.Create((Application07)Helper.Object.Server);
+                        }
+                        else
+                        {
+                            _player = ComWrapper.Create(new Application07());
+                        }
                     }
                     IsDisposed = false;
                     return _player;
@@ -51,6 +51,14 @@ namespace NowPlayingLib
         }
 
         /// <summary>
+        /// foobar2000 の Foobar2000Helper.ApplicationHelper07 への COM ラッパーを取得します。
+        /// </summary>
+        protected ComWrapper<ApplicationHelper07> Helper
+        {
+            get { return _helper ?? (_helper = ComWrapper.Create(new ApplicationHelper07())); }
+        }
+
+        /// <summary>
         /// foobar2000 の Foobar2000.Playback07 への COM ラッパーを取得します。
         /// </summary>
         protected ComWrapper<Playback07> Playback
@@ -63,6 +71,7 @@ namespace NowPlayingLib
         /// </summary>
         public Foobar2000()
         {
+            Helper.Object.ServerStateChanged += OnServerStateChanged;
             Playback.Object.TrackChanged += OnCurrentMediaChanged;
         }
 
@@ -75,6 +84,26 @@ namespace NowPlayingLib
             if (CurrentMediaChanged != null)
             {
                 CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(GetCurrentMedia().Result));
+            }
+        }
+
+        private void OnServerStateChanged(bool bRunning)
+        {
+            if (_player != null && !bRunning)
+            {
+                OnClosed();
+            }
+        }
+
+        /// <summary>
+        /// <see cref="NowPlayingLib.Foobar2000.Closed"/> イベントを発生させます。
+        /// </summary>
+        protected void OnClosed()
+        {
+            Dispose();
+            if (Closed != null)
+            {
+                Closed(this, EventArgs.Empty);
             }
         }
 
@@ -125,6 +154,10 @@ namespace NowPlayingLib
                 {
                     _playback.Dispose();
                 }
+                if (_helper != null)
+                {
+                    _helper.Dispose();
+                }
                 if (_player != null)
                 {
                     _player.Dispose();
@@ -132,6 +165,7 @@ namespace NowPlayingLib
             }
 
             _playback = null;
+            _helper = null;
             _player = null;
             IsDisposed = true;
         }
@@ -237,12 +271,8 @@ namespace NowPlayingLib
         public event CurrentMediaChangedEventHandler CurrentMediaChanged;
 
         /// <summary>
-        /// foobar2000 が終了された時に発生します。この実装は常に <see cref="System.NotSupportedException"/> をスローします。
+        /// foobar2000 が終了された時に発生します。
         /// </summary>
-        public event EventHandler Closed
-        {
-            add { throw new NotSupportedException(); }
-            remove { throw new NotSupportedException(); }
-        }
+        public event EventHandler Closed;
     }
 }
