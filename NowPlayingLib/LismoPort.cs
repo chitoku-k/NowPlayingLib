@@ -11,7 +11,7 @@ namespace NowPlayingLib
     public class LismoPort : SonyMediaPlayerX
     {
         /// <summary>
-        /// <see cref="NowPlayingLib.iTunes"/> の新しいインスタンスを初期化します。
+        /// <see cref="NowPlayingLib.LismoPort"/> の新しいインスタンスを初期化します。
         /// </summary>
         public LismoPort() { }
 
