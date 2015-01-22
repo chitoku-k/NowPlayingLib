@@ -21,7 +21,7 @@ namespace NowPlayingLib.SonyDatabase
         /// メディア オブジェクトを指定して曲情報を取得します。
         /// </summary>
         /// <param name="media">メディア オブジェクト。</param>
-        /// <returns>データベースから得られた</returns>
+        /// <returns>データベースから得られた曲情報。</returns>
         public static ObjectTable GetMediaEntry(ISmpxMediaDescriptor2 media)
         {
             string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData), DatabasePath);
