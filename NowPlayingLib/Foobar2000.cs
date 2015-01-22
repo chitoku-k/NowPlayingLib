@@ -12,6 +12,11 @@ namespace NowPlayingLib
     /// </summary>
     public class Foobar2000 : MediaPlayerBase, INotifyPlayerStateChanged
     {
+        /// <summary>
+        /// foobar2000 が使用するプロセス名。
+        /// </summary>
+        public static readonly string ProcessName = "foobar2000";
+
         private static ComWrapper<Application07> _player;
         private static ComWrapper<ApplicationHelper07> _helper;
         private static ComWrapper<Playback07> _playback;

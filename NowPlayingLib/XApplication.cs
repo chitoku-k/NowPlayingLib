@@ -11,6 +11,11 @@ namespace NowPlayingLib
     public class XApplication : SonyMediaPlayerX
     {
         /// <summary>
+        /// x-アプリ が使用するプロセス名。
+        /// </summary>
+        public static readonly string ProcessName = "x-APPLICATION";
+
+        /// <summary>
         /// <see cref="NowPlayingLib.XApplication"/> の新しいインスタンスを初期化します。
         /// </summary>
         public XApplication() { }

@@ -17,6 +17,11 @@ namespace NowPlayingLib
     /// </summary>
     public class WindowsMediaPlayer : MediaPlayerBase, INotifyPlayerStateChanged
     {
+        /// <summary>
+        /// Windows Media Player が使用するプロセス名。
+        /// </summary>
+        public static readonly string ProcessName = "wmplayer";
+
         private static ComWrapper<WindowsMediaPlayerInterop> _player;
         private static ComWrapper<IWMPControls> _controls;
 

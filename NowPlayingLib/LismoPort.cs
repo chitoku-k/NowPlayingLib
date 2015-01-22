@@ -11,6 +11,11 @@ namespace NowPlayingLib
     public class LismoPort : SonyMediaPlayerX
     {
         /// <summary>
+        /// LISMO Port (x-アプリ for LISMO) が使用するプロセス名。
+        /// </summary>
+        public static readonly string ProcessName = "x-APPLISMO";
+
+        /// <summary>
         /// <see cref="NowPlayingLib.LismoPort"/> の新しいインスタンスを初期化します。
         /// </summary>
         public LismoPort() { }

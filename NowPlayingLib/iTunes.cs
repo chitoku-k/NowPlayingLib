@@ -14,6 +14,11 @@ namespace NowPlayingLib
     /// </summary>
     public class iTunes : MediaPlayerBase, INotifyPlayerStateChanged
     {
+        /// <summary>
+        /// iTunes が使用するプロセス名。
+        /// </summary>
+        public static readonly string ProcessName = "iTunes";
+
         private static ComWrapper<iTunesApp> _player;
 
         /// <summary>
