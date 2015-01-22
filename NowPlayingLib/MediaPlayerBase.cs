@@ -19,8 +19,10 @@ namespace NowPlayingLib
         /// 指定したパスからすべてのバイトを非同期に読み取り、新しいストリームに書き込みます。
         /// </summary>
         /// <param name="path">ファイルの相対パスまたは絶対パス。</param>
+        /// <returns>
         /// <para>非同期操作を表すタスク オブジェクト。</para>
         /// <para>タスク オブジェクトの <c>Result</c> プロパティは、<see cref="System.IO.Stream"/> を返します。</para>
+        /// </returns>
         protected async Task<Stream> ReadFile(string path)
         {
             var stream = new MemoryStream();
@@ -35,8 +37,8 @@ namespace NowPlayingLib
         /// <summary>
         /// 指定したパスが null 参照 (Visual Basic では Nothing) または空でない場合、<see cref="System.IO.FileInfo"/> クラスの新しいインスタンスを初期化します。
         /// </summary>
-        /// <param name="path"></param>
-        /// <returns></returns>
+        /// <param name="path">パス。</param>
+        /// <returns>作成された <see cref="System.IO.FileInfo"/> クラス、または null 参照 (Visual Basic では Nothing)。</returns>
         protected FileInfo GetFileInfo(string path)
         {
             return string.IsNullOrEmpty(path) ? null : new FileInfo(path);
@@ -73,8 +75,10 @@ namespace NowPlayingLib
         /// <summary>
         /// 非同期操作として現在音楽プレーヤーで再生している曲を取得します。
         /// </summary>
+        /// <returns>
         /// <para>非同期操作を表すタスク オブジェクト。</para>
         /// <para>タスク オブジェクトの <c>Result</c> プロパティは、<see cref="NowPlayingLib.MediaItem"/> を返します。</para>
+        /// </returns>
         public abstract Task<MediaItem> GetCurrentMedia();
 
         /// <summary>
