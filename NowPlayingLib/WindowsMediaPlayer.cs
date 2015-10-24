@@ -170,7 +170,7 @@ namespace NowPlayingLib
                     Year = currentMedia.getItemInfo(AudioAttributes.Year).ToInt32()
                 };
                 media.AlbumArtist = string.IsNullOrEmpty(media.AlbumArtist) ? media.Artist : media.AlbumArtist;
-                media.Artworks = new Collection<Stream>(await GetArtworks(new MetadataPictureCollection(currentMedia)));
+                media.Artworks = new Collection<Stream>(await GetArtworks(new MetadataPictureCollection(currentMedia)).ConfigureAwait(false));
                 return media;
             }
         }

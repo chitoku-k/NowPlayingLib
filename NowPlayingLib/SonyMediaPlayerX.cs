@@ -37,13 +37,13 @@ namespace NowPlayingLib
 
         private async Task<MediaItem> GetCurrentMedia(ISmpxMediaDescriptor2 media)
         {
-            var entry = await Task.Run(() => MediaManager.GetMediaEntry(media));
+            var entry = await Task.Run(() => MediaManager.GetMediaEntry(media)).ConfigureAwait(false);
             return new MediaItem
             {
                 Album = entry.Album,
                 AlbumArtist = entry.Artist,
                 Artist = entry.Artist,
-                Artworks = new Collection<Stream>() { await ReadFile(entry.ArtworkPath) },
+                Artworks = new Collection<Stream>() { await ReadFile(entry.ArtworkPath).ConfigureAwait(false) },
                 BitRate = entry.BitRate.Value,
                 Composer = entry.Composer,
                 DateAdded = entry.DateAdded.Value,

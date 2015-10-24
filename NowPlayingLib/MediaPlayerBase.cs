@@ -28,7 +28,7 @@ namespace NowPlayingLib
             var stream = new MemoryStream();
             using (var file = new FileStream(path, FileMode.Open))
             {
-                await file.CopyToAsync(stream);
+                await file.CopyToAsync(stream).ConfigureAwait(false);
             }
             stream.Position = 0;
             return stream;
