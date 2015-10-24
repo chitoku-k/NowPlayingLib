@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace NowPlayingLib.Interop
 {
@@ -14,12 +13,12 @@ namespace NowPlayingLib.Interop
         /// <summary>
         /// コレクション内の要素の数を取得します。
         /// </summary>
-        public int Count { get; private set; }
+        public int Count { get; }
 
         /// <summary>
         /// 対象の曲情報を取得します。
         /// </summary>
-        public IWMPMedia3 Media { get; private set; }
+        public IWMPMedia3 Media { get; }
 
         /// <summary>
         /// <see cref="NowPlayingLib.Interop.MetadataPictureCollection"/> クラスの新しいインスタンスを初期化します。
@@ -36,7 +35,7 @@ namespace NowPlayingLib.Interop
         {
             if (media == null)
             {
-                throw new ArgumentNullException("media");
+                throw new ArgumentNullException(nameof(media));
             }
             this.Media = media;
             this.Count = media.getAttributeCountByType(AudioAttributes.Picture, "");
@@ -81,9 +80,6 @@ namespace NowPlayingLib.Interop
             }
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

@@ -6,7 +6,6 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using WindowsMediaPlayerInterop = Microsoft.MediaPlayer.Interop.WindowsMediaPlayer;
 
@@ -57,10 +56,7 @@ namespace NowPlayingLib
         /// <summary>
         /// Windows Media Player の <see cref="Microsoft.MediaPlayer.Interop.IWMPControls"/> への COM ラッパーを取得します。
         /// </summary>
-        protected ComWrapper<IWMPControls> Controls
-        {
-            get { return _controls ?? (_controls = ComWrapper.Create(Player.Object.controls)); }
-        }
+        protected ComWrapper<IWMPControls> Controls => _controls ?? (_controls = ComWrapper.Create(Player.Object.controls));
 
         /// <summary>
         /// <see cref="NowPlayingLib.WindowsMediaPlayer"/> の新しいインスタンスを作成し、Windows Media Player を初期化します。
@@ -85,10 +81,7 @@ namespace NowPlayingLib
             {
                 return;
             }
-            if (CurrentMediaChanged != null)
-            {
-                CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(Player.Object.currentMedia)));
-            }
+            CurrentMediaChanged?.Invoke(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(Player.Object.currentMedia)));
         }
 
         private void OnPlayerStateChanged()
@@ -115,10 +108,7 @@ namespace NowPlayingLib
         protected void OnClosed()
         {
             Dispose();
-            if (Closed != null)
-            {
-                Closed(this, EventArgs.Empty);
-            }
+            Closed?.Invoke(this, EventArgs.Empty);
         }
 
         private Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
@@ -134,10 +124,7 @@ namespace NowPlayingLib
             }
         }
 
-        private Task<Stream[]> GetArtworks(MetadataPictureCollection artworks)
-        {
-            return Task.WhenAll(artworks.Select(GetArtwork));
-        }
+        private Task<Stream[]> GetArtworks(MetadataPictureCollection artworks) => Task.WhenAll(artworks.Select(GetArtwork));
 
         private async Task<MediaItem> GetCurrentMedia(IWMPMedia currentMedia)
         {
@@ -182,10 +169,7 @@ namespace NowPlayingLib
         /// <para>非同期操作を表すタスク オブジェクト。</para>
         /// <para>タスク オブジェクトの <c>Result</c> プロパティは、<see cref="NowPlayingLib.MediaItem"/> を返します。</para>
         /// </returns>
-        public override Task<MediaItem> GetCurrentMedia()
-        {
-            return GetCurrentMedia(Player.Object.currentMedia);
-        }
+        public override Task<MediaItem> GetCurrentMedia() => GetCurrentMedia(Player.Object.currentMedia);
 
         /// <summary>
         /// Windows Media Player に関連付けられたアンマネージ リソースを解放します。
@@ -255,58 +239,37 @@ namespace NowPlayingLib
         /// <summary>
         /// Windows Media Player で再生を実行します。
         /// </summary>
-        public override void Play()
-        {
-            Controls.Object.play();
-        }
+        public override void Play() => Controls.Object.play();
 
         /// <summary>
         /// Windows Media Player で早送りを実行します。
         /// </summary>
-        public override void FastForward()
-        {
-            Controls.Object.fastForward();
-        }
+        public override void FastForward() => Controls.Object.fastForward();
 
         /// <summary>
         /// Windows Media Player で巻戻しを実行します。
         /// </summary>
-        public override void Rewind()
-        {
-            Controls.Object.fastReverse();
-        }
+        public override void Rewind() => Controls.Object.fastReverse();
 
         /// <summary>
         /// Windows Media Player で停止を実行します。
         /// </summary>
-        public override void Stop()
-        {
-            Controls.Object.stop();
-        }
+        public override void Stop() => Controls.Object.stop();
 
         /// <summary>
         /// Windows Media Player で一時停止を実行します。
         /// </summary>
-        public override void Pause()
-        {
-            Controls.Object.pause();
-        }
+        public override void Pause() => Controls.Object.pause();
 
         /// <summary>
         /// Windows Media Player で次の曲の再生を実行します。
         /// </summary>
-        public override void NextTrack()
-        {
-            Controls.Object.next();
-        }
+        public override void NextTrack() => Controls.Object.next();
 
         /// <summary>
         /// Windows Media Player で前の曲の再生を実行します。
         /// </summary>
-        public override void PreviousTrack()
-        {
-            Controls.Object.previous();
-        }
+        public override void PreviousTrack() => Controls.Object.previous();
 
         /// <summary>
         /// Windows Media Player で再生中の曲が変更されたときに発生します。

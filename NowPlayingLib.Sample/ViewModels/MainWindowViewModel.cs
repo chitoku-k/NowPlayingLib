@@ -1,11 +1,8 @@
 ﻿using Livet;
 using Livet.Commands;
 using System;
-using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Media.Imaging;
 
 namespace NowPlayingLib.Sample.ViewModels
@@ -121,10 +118,7 @@ namespace NowPlayingLib.Sample.ViewModels
         #region SelectPlayerCommand
 
         private ListenerCommand<string> _selectPlayerCommand;
-        public ListenerCommand<string> SelectPlayerCommand
-        {
-            get { return _selectPlayerCommand ?? (_selectPlayerCommand = new ListenerCommand<string>(SelectPlayer)); }
-        }
+        public ListenerCommand<string> SelectPlayerCommand => _selectPlayerCommand ?? (_selectPlayerCommand = new ListenerCommand<string>(SelectPlayer));
 
         #endregion
 

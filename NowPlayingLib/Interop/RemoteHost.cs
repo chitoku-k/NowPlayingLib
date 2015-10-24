@@ -10,35 +10,18 @@ namespace NowPlayingLib.Interop
     [ClassInterface(ClassInterfaceType.AutoDispatch)]
     internal sealed class RemoteHost : IServiceProvider, IOleClientSite
     {
-        public IntPtr QueryService(ref Guid guidService, ref Guid riid)
-        {
-            return Marshal.GetComInterfaceForObject(new MediaServiceProvider(), typeof(IWMPRemoteMediaServices));
-        }
+        public IntPtr QueryService(ref Guid guidService, ref Guid riid) => Marshal.GetComInterfaceForObject(new MediaServiceProvider(), typeof(IWMPRemoteMediaServices));
 
-        public object GetContainer()
-        {
-            return HRESULT.E_NOTIMPL;
-        }
+        public object GetContainer() => HRESULT.E_NOTIMPL;
 
-        public object GetMoniker(uint dwAssign, uint dwWhichMoniker)
-        {
-            return HRESULT.E_NOTIMPL;
-        }
+        public object GetMoniker(uint dwAssign, uint dwWhichMoniker) => HRESULT.E_NOTIMPL;
 
-        public void OnShowWindow(bool fShow)
-        {
-        }
+        public void OnShowWindow(bool fShow) { }
 
-        public void RequestNewObjectLayout()
-        {
-        }
+        public void RequestNewObjectLayout() { }
 
-        public void SaveObject()
-        {
-        }
+        public void SaveObject() { }
 
-        public void ShowObject()
-        {
-        }
+        public void ShowObject() { }
     }
 }

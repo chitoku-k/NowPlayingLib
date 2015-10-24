@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
 namespace NowPlayingLib
@@ -39,10 +38,7 @@ namespace NowPlayingLib
         /// </summary>
         /// <param name="path">パス。</param>
         /// <returns>作成された <see cref="System.IO.FileInfo"/> クラス、または null 参照 (Visual Basic では Nothing)。</returns>
-        protected FileInfo GetFileInfo(string path)
-        {
-            return string.IsNullOrEmpty(path) ? null : new FileInfo(path);
-        }
+        protected FileInfo GetFileInfo(string path) => string.IsNullOrEmpty(path) ? null : new FileInfo(path);
 
         /// <summary>
         /// ガベージ コレクターがオブジェクトを破棄する前に、最後のクリーンアップを実行します。

@@ -30,10 +30,7 @@ namespace NowPlayingLib
         /// SonyMediaPlayerX の <see cref="SonyMediaPlayerXLib.ISmpxPlayControls"/> への COM ラッパーを取得します。
         /// </summary>
         /// <exception cref="System.TypeInitializationException"/>
-        protected ComWrapper<ISmpxPlayControls> Controls
-        {
-            get { return _controls ?? (_controls = ComWrapper.Create(Player.Object.playControls)); }
-        }
+        protected ComWrapper<ISmpxPlayControls> Controls => _controls ?? (_controls = ComWrapper.Create(Player.Object.playControls));
 
         private async Task<MediaItem> GetCurrentMedia(ISmpxMediaDescriptor2 media)
         {
@@ -146,57 +143,36 @@ namespace NowPlayingLib
         /// <summary>
         /// SonyMediaPlayerX で再生を実行します。
         /// </summary>
-        public override void Play()
-        {
-            Controls.Object.play();
-        }
+        public override void Play() => Controls.Object.play();
 
         /// <summary>
         /// SonyMediaPlayerX で早送りを実行します。
         /// </summary>
-        public override void FastForward()
-        {
-            Controls.Object.fastForward();
-        }
+        public override void FastForward() => Controls.Object.fastForward();
 
         /// <summary>
         /// SonyMediaPlayerX で巻戻しを実行します。
         /// </summary>
-        public override void Rewind()
-        {
-            Controls.Object.fastReverse();
-        }
+        public override void Rewind() => Controls.Object.fastReverse();
 
         /// <summary>
         /// SonyMediaPlayerX で停止を実行します。
         /// </summary>
-        public override void Stop()
-        {
-            Controls.Object.stop();
-        }
+        public override void Stop() => Controls.Object.stop();
 
         /// <summary>
         /// SonyMediaPlayerX で一時停止を実行します。
         /// </summary>
-        public override void Pause()
-        {
-            Controls.Object.pause();
-        }
+        public override void Pause() => Controls.Object.pause();
 
         /// <summary>
         /// SonyMediaPlayerX で次の曲の再生を実行します。
         /// </summary>
-        public override void NextTrack()
-        {
-            Controls.Object.next();
-        }
+        public override void NextTrack() => Controls.Object.next();
 
         /// <summary>
         /// SonyMediaPlayerX で前の曲の再生を実行します。
         /// </summary>
-        public override void PreviousTrack()
-        {
-            Controls.Object.previous();
-        }
+        public override void PreviousTrack() => Controls.Object.previous();
     }
 }

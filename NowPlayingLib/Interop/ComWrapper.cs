@@ -12,7 +12,7 @@ namespace NowPlayingLib.Interop
         /// <summary>
         /// COM オブジェクトを取得します。
         /// </summary>
-        public T Object { get; private set; }
+        public T Object { get; }
 
         internal ComWrapper(T o)
         {
@@ -62,9 +62,6 @@ namespace NowPlayingLib.Interop
         /// <typeparam name="T">COM オブジェクトの型。</typeparam>
         /// <param name="o">COM オブジェクト。</param>
         /// <returns>COM オブジェクトのラッパー。</returns>
-        public static ComWrapper<T> Create<T>(T o)
-        {
-            return new ComWrapper<T>(o);
-        }
+        public static ComWrapper<T> Create<T>(T o) => new ComWrapper<T>(o);
     }
 }

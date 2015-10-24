@@ -17,7 +17,7 @@ namespace NowPlayingLib
         /// <summary>
         /// 曲情報を取得します。
         /// </summary>
-        public MediaItem CurrentMedia { get; private set; }
+        public MediaItem CurrentMedia { get; }
 
         /// <summary>
         /// <see cref="NowPlayingLib.CurrentMediaChangedEventArgs"/> クラスの新しいインスタンスを初期化します。

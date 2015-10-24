@@ -1,5 +1,4 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿using System.Runtime.InteropServices;
 
 namespace NowPlayingLib.Interop
 {
@@ -10,25 +9,12 @@ namespace NowPlayingLib.Interop
     [ClassInterface(ClassInterfaceType.None)]
     internal sealed class MediaServiceProvider : IWMPRemoteMediaServices
     {
-        public string GetServiceType()
-        {
-            return "Remote";
-        }
+        public string GetServiceType() => "Remote";
 
-        public string GetApplicationName()
-        {
-            return "NowPlayingLib";
-        }
+        public string GetApplicationName() =>  "NowPlayingLib";
 
-        public object GetScriptableObject(out string name)
-        {
-            name = null;
-            return null;
-        }
+        public object GetScriptableObject(out string name) => name = null;
 
-        public string GetCustomUIMode()
-        {
-            return null;
-        }
+        public string GetCustomUIMode() => null;
     }
 }

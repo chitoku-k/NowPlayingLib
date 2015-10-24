@@ -58,18 +58,12 @@ namespace NowPlayingLib
         /// <summary>
         /// foobar2000 の Foobar2000Helper.ApplicationHelper07 への COM ラッパーを取得します。
         /// </summary>
-        protected ComWrapper<ApplicationHelper07> Helper
-        {
-            get { return _helper ?? (_helper = ComWrapper.Create(new ApplicationHelper07())); }
-        }
+        protected ComWrapper<ApplicationHelper07> Helper => _helper ?? (_helper = ComWrapper.Create(new ApplicationHelper07()));
 
         /// <summary>
         /// foobar2000 の Foobar2000.Playback07 への COM ラッパーを取得します。
         /// </summary>
-        protected ComWrapper<Playback07> Playback
-        {
-            get { return _playback ?? (_playback = ComWrapper.Create(Player.Object.Playback)); }
-        }
+        protected ComWrapper<Playback07> Playback => _playback ?? (_playback = ComWrapper.Create(Player.Object.Playback));
 
         /// <summary>
         /// <see cref="NowPlayingLib.Foobar2000"/> の新しいインスタンスを作成し、foobar2000 を初期化します。
@@ -84,13 +78,7 @@ namespace NowPlayingLib
         /// <see cref="NowPlayingLib.Foobar2000.CurrentMediaChanged"/> イベントを発生させます。
         /// </summary>
         /// <param name="bLocationChanged">再生位置が変更されたかを示す値。</param>
-        protected void OnCurrentMediaChanged(bool bLocationChanged)
-        {
-            if (CurrentMediaChanged != null)
-            {
-                CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(GetCurrentMedia().Result));
-            }
-        }
+        protected void OnCurrentMediaChanged(bool bLocationChanged) => CurrentMediaChanged?.Invoke(this, new CurrentMediaChangedEventArgs(GetCurrentMedia().Result));
 
         private void OnServerStateChanged(bool bRunning)
         {
@@ -106,10 +94,7 @@ namespace NowPlayingLib
         protected void OnClosed()
         {
             Dispose();
-            if (Closed != null)
-            {
-                Closed(this, EventArgs.Empty);
-            }
+            Closed?.Invoke(this, EventArgs.Empty);
         }
 
         /// <summary>
@@ -215,10 +200,7 @@ namespace NowPlayingLib
         /// <summary>
         /// foobar2000 で再生を実行します。
         /// </summary>
-        public override void Play()
-        {
-            Playback.Object.Start(false);
-        }
+        public override void Play() => Playback.Object.Start(false);
 
         /// <summary>
         /// foobar2000 で早送りを実行します。この実装は常に <see cref="System.NotSupportedException"/> をスローします。
@@ -241,34 +223,22 @@ namespace NowPlayingLib
         /// <summary>
         /// foobar2000 で停止を実行します。
         /// </summary>
-        public override void Stop()
-        {
-            Playback.Object.Stop();
-        }
+        public override void Stop() => Playback.Object.Stop();
 
         /// <summary>
         /// foobar2000 で一時停止を実行します。
         /// </summary>
-        public override void Pause()
-        {
-            Playback.Object.Pause();
-        }
+        public override void Pause() => Playback.Object.Pause();
 
         /// <summary>
         /// foobar2000 で次の曲の再生を実行します。
         /// </summary>
-        public override void NextTrack()
-        {
-            Playback.Object.Next();
-        }
+        public override void NextTrack() => Playback.Object.Next();
 
         /// <summary>
         /// foobar2000 で前の曲の再生を実行します。
         /// </summary>
-        public override void PreviousTrack()
-        {
-            Playback.Object.Previous();
-        }
+        public override void PreviousTrack() => Playback.Object.Previous();
 
         /// <summary>
         /// foobar2000 で再生中の曲が変更されたときに発生します。

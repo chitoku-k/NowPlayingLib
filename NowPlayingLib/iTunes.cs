@@ -1,7 +1,6 @@
 ﻿using iTunesLib;
 using NowPlayingLib.Interop;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -66,9 +65,9 @@ namespace NowPlayingLib
         protected async void OnCurrentMediaChanged(object iTrack)
         {
             var track = iTrack as IITTrack;
-            if (track != null && CurrentMediaChanged != null)
+            if (track != null)
             {
-                CurrentMediaChanged(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(track)));
+                CurrentMediaChanged?.Invoke(this, new CurrentMediaChangedEventArgs(await GetCurrentMedia(track)));
             }
         }
 
@@ -78,10 +77,7 @@ namespace NowPlayingLib
         protected void OnClosed()
         {
             Dispose();
-            if (Closed != null)
-            {
-                Closed(this, EventArgs.Empty);
-            }
+            Closed?.Invoke(this, EventArgs.Empty);
         }
 
         private Task<Stream> GetArtwork(IITArtwork artwork)
@@ -98,10 +94,7 @@ namespace NowPlayingLib
             }
         }
 
-        private Task<Stream[]> GetArtworks(IITArtworkCollection artworks)
-        {
-            return Task.WhenAll(artworks.OfType<IITArtwork>().Select(GetArtwork));
-        }
+        private Task<Stream[]> GetArtworks(IITArtworkCollection artworks) => Task.WhenAll(artworks.OfType<IITArtwork>().Select(GetArtwork));
 
         private async Task<MediaItem> GetCurrentMedia(IITTrack currentTrack)
         {
@@ -146,10 +139,7 @@ namespace NowPlayingLib
         /// <para>非同期操作を表すタスク オブジェクト。</para>
         /// <para>タスク オブジェクトの <c>Result</c> プロパティは、<see cref="NowPlayingLib.MediaItem"/> を返します。</para>
         /// </returns>
-        public override Task<MediaItem> GetCurrentMedia()
-        {
-            return GetCurrentMedia(Player.Object.CurrentTrack);
-        }
+        public override Task<MediaItem> GetCurrentMedia() => GetCurrentMedia(Player.Object.CurrentTrack);
 
         /// <summary>
         /// iTunes に関連付けられたアンマネージ リソースを解放します。
@@ -224,58 +214,37 @@ namespace NowPlayingLib
         /// <summary>
         /// iTunes で再生を実行します。
         /// </summary>
-        public override void Play()
-        {
-            Player.Object.Play();
-        }
+        public override void Play() => Player.Object.Play();
 
         /// <summary>
         /// iTunes で早送りを実行します。
         /// </summary>
-        public override void FastForward()
-        {
-            Player.Object.FastForward();
-        }
+        public override void FastForward() => Player.Object.FastForward();
 
         /// <summary>
         /// iTunes で巻戻しを実行します。
         /// </summary>
-        public override void Rewind()
-        {
-            Player.Object.Rewind();
-        }
+        public override void Rewind() => Player.Object.Rewind();
 
         /// <summary>
         /// iTunes で停止を実行します。
         /// </summary>
-        public override void Stop()
-        {
-            Player.Object.Stop();
-        }
+        public override void Stop() => Player.Object.Stop();
 
         /// <summary>
         /// iTunes で一時停止を実行します。
         /// </summary>
-        public override void Pause()
-        {
-            Player.Object.Pause();
-        }
+        public override void Pause() => Player.Object.Pause();
 
         /// <summary>
         /// iTunes で次の曲の再生を実行します。
         /// </summary>
-        public override void NextTrack()
-        {
-            Player.Object.NextTrack();
-        }
+        public override void NextTrack() => Player.Object.NextTrack();
 
         /// <summary>
         /// iTunes で前の曲の再生を実行します。
         /// </summary>
-        public override void PreviousTrack()
-        {
-            Player.Object.PreviousTrack();
-        }
+        public override void PreviousTrack() => Player.Object.PreviousTrack();
 
         /// <summary>
         /// iTunes で再生中の曲が変更されたときに発生します。
