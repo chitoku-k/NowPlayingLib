@@ -6,7 +6,7 @@ namespace NowPlayingLib
     /// <summary>
     /// メディア プレーヤーの基本的なインターフェイスを提供します。
     /// </summary>
-    public interface IMediaPlayer
+    public interface IMediaPlayer : IDisposable
     {
         /// <summary>
         /// 非同期操作として現在音楽プレーヤーで再生している曲を取得します。

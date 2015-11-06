@@ -7,7 +7,7 @@ namespace NowPlayingLib
     /// <summary>
     /// 音楽プレーヤーの基本実装を提供します。これは <c>abstract</c> クラスです。
     /// </summary>
-    public abstract class MediaPlayerBase : IDisposable, IMediaPlayer
+    public abstract class MediaPlayerBase : IMediaPlayer
     {
         /// <summary>
         /// <see cref="NowPlayingLib.MediaPlayerBase"/> クラスの新しいインスタンスを初期化します。
