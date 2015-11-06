@@ -85,7 +85,7 @@ namespace NowPlayingLib.Sample.ViewModels
 
         #endregion
 
-        public MediaPlayerBase Player { get; set; }
+        public IMediaPlayer Player { get; set; }
 
         private void SetArtwork(MediaItem value)
         {
@@ -125,7 +125,7 @@ namespace NowPlayingLib.Sample.ViewModels
         public async void SelectPlayer(string parameter)
         {
             this.IsMenuShown = false;
-            MediaPlayerBase player;
+            IMediaPlayer player;
 
             try
             {

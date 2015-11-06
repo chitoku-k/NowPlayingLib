@@ -83,6 +83,7 @@
   <ItemGroup>
     <Compile Include="Foobar2000.cs" />
     <Compile Include="Helpers\TryParseHelper.cs" />
+    <Compile Include="IMediaPlayer.cs" />
     <Compile Include="INotifyPlayerStateChanged.cs" />
     <Compile Include="Interop\AudioAttributes.cs" />
     <Compile Include="Interop\ComWrapper.cs" />
