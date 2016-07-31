@@ -3,6 +3,8 @@ NowPlayingLib
 
 A wrapper library that controlls the media players on Windows
 
+README は [日本語版](https://github.com/chitoku-k/NowPlayingLib/blob/master/README.ja.md) もあります。
+
 ## Supported Players
 
 - Windows Media Player
