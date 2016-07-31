@@ -18,6 +18,7 @@ Windows 向けメディア プレーヤー操作用ラッパー ライブラリ
 ```csharp
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using NowPlayingLib;
 

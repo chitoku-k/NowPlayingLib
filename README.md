@@ -20,6 +20,7 @@ README は [日本語版](https://github.com/chitoku-k/NowPlayingLib/blob/master
 ```csharp
 using System;
 using System.Diagnostics;
+using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using NowPlayingLib;
 
