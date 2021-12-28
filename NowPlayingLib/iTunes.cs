@@ -80,17 +80,20 @@ namespace NowPlayingLib
             Closed?.Invoke(this, EventArgs.Empty);
         }
 
-        private Task<Stream> GetArtwork(IITArtwork artwork)
+        private async Task<Stream> GetArtwork(IITArtwork artwork)
         {
             using (ComWrapper.Create(artwork))
             {
                 string path = Path.GetTempFileName();
-                artwork.SaveArtworkToFile(path);
-                return ReadFile(path).ContinueWith(task =>
+                try
+                {
+                    artwork.SaveArtworkToFile(path);
+                    return await ReadFile(path);
+                }
+                finally
                 {
                     File.Delete(path);
-                    return task.Result;
-                });
+                }
             }
         }
 
