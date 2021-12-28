@@ -58,7 +58,7 @@
         </Style>
         <l:VisibilityAndBooleanConverter x:Key="VisibilityAndBooleanConverter" ConvertWhenTrue="Visible" ConvertWhenFalse="Collapsed" />
     </Window.Resources>
-    <Grid Height="300" Width="300">
+    <Grid Height="300" Width="300" UseLayoutRounding="True">
         <Grid.Effect>
             <DropShadowEffect BlurRadius="15" Direction="-90" RenderingBias="Quality" ShadowDepth="4"/>
         </Grid.Effect>
