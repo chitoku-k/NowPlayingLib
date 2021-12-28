@@ -111,16 +111,19 @@ namespace NowPlayingLib
             Closed?.Invoke(this, EventArgs.Empty);
         }
 
-        private Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
+        private async Task<Stream> GetArtwork(IWMPMetadataPicture artwork)
         {
             using (ComWrapper.Create(artwork))
             {
                 var cache = NativeMethods.GetUrlCacheEntryInfo(artwork.URL);
-                return ReadFile(cache.LocalFileName).ContinueWith(task =>
+                try
+                {
+                    return await ReadFile(cache.LocalFileName);
+                }
+                finally
                 {
                     NativeMethods.DeleteUrlCacheEntry(cache.SourceUrlName);
-                    return task.Result;
-                });
+                }
             }
         }
 

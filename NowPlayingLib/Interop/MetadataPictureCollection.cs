@@ -11,6 +11,11 @@ namespace NowPlayingLib.Interop
     public class MetadataPictureCollection : IReadOnlyList<IWMPMetadataPicture>
     {
         /// <summary>
+        /// コレクション内の有効な要素のインデックスを取得します。
+        /// </summary>
+        protected IReadOnlyList<int> Indices { get; }
+
+        /// <summary>
         /// コレクション内の要素の数を取得します。
         /// </summary>
         public int Count { get; }
@@ -38,7 +43,33 @@ namespace NowPlayingLib.Interop
                 throw new ArgumentNullException(nameof(media));
             }
             this.Media = media;
-            this.Count = media.getAttributeCountByType(AudioAttributes.Picture, "");
+            this.Indices = GetIndices();
+            this.Count = this.Indices.Count;
+        }
+
+        /// <summary>
+        /// コレクション内の有効な要素のインデックスを取得します。
+        /// </summary>
+        /// <returns>有効な要素のインデックス。</returns>
+        protected IReadOnlyList<int> GetIndices()
+        {
+            var indices = new List<int>();
+
+            for (int i = 0; i < this.Media.getAttributeCountByType(AudioAttributes.Picture, ""); i++)
+            {
+                try
+                {
+                    this.Media.getItemInfoByType(AudioAttributes.Picture, "", i);
+                }
+                catch (ArgumentException)
+                {
+                    // IWMPMedia3.getItemInfoByType(string,string,int) throws because not all WM/Picture entries can be retrieved for some reason.
+                    continue;
+                }
+                indices.Add(i);
+            }
+
+            return indices;
         }
 
         /// <summary>
@@ -64,18 +95,11 @@ namespace NowPlayingLib.Interop
             {
                 try
                 {
-                    return (IWMPMetadataPicture)this.Media.getItemInfoByType(AudioAttributes.Picture, "", index);
+                    return (IWMPMetadataPicture)this.Media.getItemInfoByType(AudioAttributes.Picture, "", this.Indices[index]);
                 }
-                catch (ArgumentException ex)
+                catch (ArgumentException ex) when (this.Count <= index)
                 {
-                    if (this.Count <= index)
-                    {
-                        throw new IndexOutOfRangeException(ex.Message, ex);
-                    }
-                    else
-                    {
-                        throw;
-                    }
+                    throw new IndexOutOfRangeException(ex.Message, ex);
                 }
             }
         }
